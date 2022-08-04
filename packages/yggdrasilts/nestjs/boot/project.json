@@ -1,0 +1,46 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/yggdrasilts/nestjs/boot/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/yggdrasilts/nestjs/boot",
+        "tsConfig": "packages/yggdrasilts/nestjs/boot/tsconfig.lib.json",
+        "packageJson": "packages/yggdrasilts/nestjs/boot/package.json",
+        "main": "packages/yggdrasilts/nestjs/boot/src/index.ts",
+        "assets": ["packages/yggdrasilts/nestjs/boot/*.md"]
+      }
+    },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs yggdrasilts-nestjs-boot {args.ver} {args.tag} {args.otp}"
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/yggdrasilts/nestjs/boot/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/yggdrasilts/nestjs/boot"],
+      "options": {
+        "jestConfig": "packages/yggdrasilts/nestjs/boot/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

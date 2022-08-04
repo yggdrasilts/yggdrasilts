@@ -1,0 +1,17 @@
+{
+  "name": "@yggdrasilts/axiosfit",
+  "version": "0.10.8",
+  "description": "Project inspired in Retrofit.",
+  "keywords": [
+    "typescript",
+    "axios",
+    "rxjs",
+    "promise",
+    "javascript"
+  ],
+  "license": "MIT",
+  "author": "YggdrasilTS Team 🌳",
+  "contributors": [
+    "David Lopez <davidlopez.david@gmail.com>"
+  ]
+}

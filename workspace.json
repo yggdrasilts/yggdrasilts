@@ -1,5 +1,15 @@
 {
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
-  "projects": {}
+  "projects": {
+    "yggdrasilts-axiosfit": "packages/yggdrasilts/axiosfit",
+    "yggdrasilts-nestjs-authentication": "packages/yggdrasilts/nestjs/authentication",
+    "yggdrasilts-nestjs-boot": "packages/yggdrasilts/nestjs/boot",
+    "yggdrasilts-nestjs-common": "packages/yggdrasilts/nestjs/common",
+    "yggdrasilts-nestjs-config": "packages/yggdrasilts/nestjs/config",
+    "yggdrasilts-nestjs-container": "packages/yggdrasilts/nestjs/container",
+    "yggdrasilts-nestjs-data": "packages/yggdrasilts/nestjs/data",
+    "yggdrasilts-nestjs-logger": "packages/yggdrasilts/nestjs/logger",
+    "yggdrasilts-volundr": "packages/yggdrasilts/volundr"
+  }
 }

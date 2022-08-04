@@ -1,0 +1,48 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/yggdrasilts/nestjs/authentication/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/yggdrasilts/nestjs/authentication",
+        "tsConfig": "packages/yggdrasilts/nestjs/authentication/tsconfig.lib.json",
+        "packageJson": "packages/yggdrasilts/nestjs/authentication/package.json",
+        "main": "packages/yggdrasilts/nestjs/authentication/src/index.ts",
+        "assets": ["packages/yggdrasilts/nestjs/authentication/*.md"]
+      }
+    },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs yggdrasilts-nestjs-authentication {args.ver} {args.tag} {args.otp}"
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/yggdrasilts/nestjs/authentication/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/yggdrasilts/nestjs/authentication"],
+      "options": {
+        "jestConfig": "packages/yggdrasilts/nestjs/authentication/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

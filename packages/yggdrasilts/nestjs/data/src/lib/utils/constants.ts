@@ -1,0 +1,1 @@
+export const ARANGODB_STORE = 'ARANGODB_STORE';
