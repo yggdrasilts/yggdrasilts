@@ -1,9 +1,9 @@
 # Axiosfit
 
-![GitHub package.json version](https://img.shields.io/github/package-json/v/yggdrasilts/axiosfit)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/yggdrasilts/yggdrasilts?filename=packages%2Fyggdrasilts%2Faxiosfit%2Fpackage.json)
 ![NPM](https://img.shields.io/npm/l/@yggdrasilts/axiosfit)
-![GitHub issues](https://img.shields.io/github/issues/yggdrasilts/axiosfit)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/yggdrasilts/axiosfit)
+![GitHub issues](https://img.shields.io/github/issues/yggdrasilts/yggdrasilts)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/yggdrasilts/yggdrasilts)
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 ![npm](https://img.shields.io/npm/dw/@yggdrasilts/axiosfit)
