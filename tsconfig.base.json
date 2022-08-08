@@ -16,27 +16,13 @@
     "baseUrl": ".",
     "paths": {
       "@yggdrasilts/axiosfit": ["packages/yggdrasilts/axiosfit/src/index.ts"],
-      "@yggdrasilts/nest-auth": [
-        "packages/yggdrasilts/nestjs/authentication/src/index.ts"
-      ],
-      "@yggdrasilts/nest-boot": [
-        "packages/yggdrasilts/nestjs/boot/src/index.ts"
-      ],
-      "@yggdrasilts/nest-common": [
-        "packages/yggdrasilts/nestjs/common/src/index.ts"
-      ],
-      "@yggdrasilts/nest-config": [
-        "packages/yggdrasilts/nestjs/config/src/index.ts"
-      ],
-      "@yggdrasilts/nest-container": [
-        "packages/yggdrasilts/nestjs/container/src/index.ts"
-      ],
-      "@yggdrasilts/nest-data": [
-        "packages/yggdrasilts/nestjs/data/src/index.ts"
-      ],
-      "@yggdrasilts/nest-logger": [
-        "packages/yggdrasilts/nestjs/logger/src/index.ts"
-      ],
+      "@yggdrasilts/nest-auth": ["packages/yggdrasilts/nestjs/authentication/src/index.ts"],
+      "@yggdrasilts/nest-boot": ["packages/yggdrasilts/nestjs/boot/src/index.ts"],
+      "@yggdrasilts/nest-common": ["packages/yggdrasilts/nestjs/common/src/index.ts"],
+      "@yggdrasilts/nest-config": ["packages/yggdrasilts/nestjs/config/src/index.ts"],
+      "@yggdrasilts/nest-container": ["packages/yggdrasilts/nestjs/container/src/index.ts"],
+      "@yggdrasilts/nest-data": ["packages/yggdrasilts/nestjs/data/src/index.ts"],
+      "@yggdrasilts/nest-logger": ["packages/yggdrasilts/nestjs/logger/src/index.ts"],
       "@yggdrasilts/volundr": ["packages/yggdrasilts/volundr/src/index.ts"]
     }
   },

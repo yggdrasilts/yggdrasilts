@@ -1,6 +1,6 @@
 {
   "name": "@yggdrasilts/axiosfit",
-  "version": "0.10.8",
+  "version": "0.10.9",
   "description": "Project inspired in Retrofit.",
   "keywords": [
     "typescript",
@@ -13,5 +13,12 @@
   "author": "YggdrasilTS Team 🌳",
   "contributors": [
     "David Lopez <davidlopez.david@gmail.com>"
-  ]
+  ],
+  "dependencies": {
+    "@yggdrasilts/volundr": "0.2.3",
+    "axios": "^0.27.2",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.5.6",
+    "tslib": "^2.3.0"
+  }
 }

@@ -1,0 +1,58 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/boot-using-config/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/boot-using-config",
+        "main": "apps/boot-using-config/src/main.ts",
+        "tsConfig": "apps/boot-using-config/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*.yml",
+            "input": "apps/boot-using-config/config",
+            "output": "./config"
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": []
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "boot-using-config:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "boot-using-config:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/boot-using-config/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/boot-using-config"],
+      "options": {
+        "jestConfig": "apps/boot-using-config/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,5 +1,10 @@
 {
   "name": "@yggdrasilts/nest-boot",
   "version": "0.1.0",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "@yggdrasilts/nest-config": "^0.1.0",
+    "@yggdrasilts/nest-common": "^0.1.0",
+    "@yggdrasilts/nest-logger": "^0.1.0"
+  }
 }

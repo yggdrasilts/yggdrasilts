@@ -14,12 +14,6 @@
         "assets": ["packages/yggdrasilts/nestjs/common/*.md"]
       }
     },
-    "updateVersion": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "command": "node tools/scripts/manage_versions.mjs yggdrasilts-nestjs-common {args.ver}"
-      }
-    },
     "publish": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {

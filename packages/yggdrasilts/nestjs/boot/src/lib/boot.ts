@@ -1,3 +1,5 @@
+import * as chalk from 'chalk';
+
 import { INestApplicationContext, NestApplicationOptions } from '@nestjs/common';
 import { Module } from '@nestjs/common';
 import { NestApplicationContextOptions } from '@nestjs/common/interfaces/nest-application-context-options.interface';
@@ -23,7 +25,11 @@ class EmptyModule {}
 
 export class YggNestBoot {
   public static async bootstrapService(module: any, options?: NestApplicationOptions): Promise<void> {
-    const api = await NestFactory.create(module, { cors: true, ...options, bufferLogs: true });
+    const api = await NestFactory.create(module, {
+      cors: true,
+      ...options,
+      bufferLogs: true,
+    });
     const config = api.get(ConfigService);
 
     api.useLogger(logger);
@@ -31,7 +37,11 @@ export class YggNestBoot {
     let serviceConfig = config.get<ServiceConfig>('service');
 
     if (!serviceConfig || Object.keys(serviceConfig).length === 0) {
-      logger.warn('Service using default service config:', defaultServiceConfig);
+      logger.warn(
+        'Service using default service config:',
+        defaultServiceConfig,
+        `\nIf you want custom config, use ${chalk.bold.yellow('YggNestConfigModule.register(...)')}`,
+      );
       serviceConfig = defaultServiceConfig;
     }
 
@@ -46,7 +56,11 @@ export class YggNestBoot {
         logger.banner(serviceConfig.name, { figletOptions: { width: 180 } });
       }
 
-      logger.info(`🚀 Application is running on: http://${serviceConfig.host}:${serviceConfig.port}/${serviceConfig.globalPrefix}`);
+      logger.info(
+        `🚀 Application is running on: ${chalk.bold.greenBright(
+          `http://${serviceConfig.host}:${serviceConfig.port}/${serviceConfig.globalPrefix}`,
+        )}`,
+      );
     } catch (error) {
       logger.error('💥 Application is not running due to the following error:\n', error);
       api.close();

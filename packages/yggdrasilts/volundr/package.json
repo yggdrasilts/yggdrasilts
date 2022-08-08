@@ -11,5 +11,9 @@
   "author": "YggdrasilTS Team 🌳",
   "contributors": [
     "David Lopez <davidlopez.david@gmail.com>"
-  ]
+  ],
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "tslib": "^2.3.0"
+  }
 }

@@ -12,11 +12,7 @@ export class FileUtils {
     return direntList;
   }
 
-  private static _walk(
-    direntList: string[],
-    dir: string,
-    options?: WalkOptions
-  ): string[] {
+  private static _walk(direntList: string[], dir: string, options?: WalkOptions): string[] {
     readdirSync(dir, { withFileTypes: true }).forEach((d) => {
       if (d.isDirectory()) {
         FileUtils._walk(direntList, join(dir, d.name), options);
