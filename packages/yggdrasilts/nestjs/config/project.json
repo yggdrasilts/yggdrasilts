@@ -11,7 +11,14 @@
         "tsConfig": "packages/yggdrasilts/nestjs/config/tsconfig.lib.json",
         "packageJson": "packages/yggdrasilts/nestjs/config/package.json",
         "main": "packages/yggdrasilts/nestjs/config/src/index.ts",
-        "assets": ["packages/yggdrasilts/nestjs/config/*.md"]
+        "assets": [
+          "packages/yggdrasilts/nestjs/config/*.md",
+          {
+            "glob": "./LICENSE",
+            "input": "./",
+            "output": "."
+          }
+        ]
       }
     },
     "publish": {

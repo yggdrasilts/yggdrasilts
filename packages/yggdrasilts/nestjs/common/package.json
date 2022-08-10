@@ -1,9 +1,10 @@
 {
   "name": "@yggdrasilts/nest-common",
-  "version": "0.1.0",
+  "version": "0.1.7",
   "type": "commonjs",
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0"
-  }
+  },
+  "license": "MIT"
 }

@@ -11,7 +11,14 @@
         "tsConfig": "packages/yggdrasilts/nestjs/authentication/tsconfig.lib.json",
         "packageJson": "packages/yggdrasilts/nestjs/authentication/package.json",
         "main": "packages/yggdrasilts/nestjs/authentication/src/index.ts",
-        "assets": ["packages/yggdrasilts/nestjs/authentication/*.md"]
+        "assets": [
+          "packages/yggdrasilts/nestjs/authentication/*.md",
+          {
+            "glob": "./LICENSE",
+            "input": "./",
+            "output": "."
+          }
+        ]
       }
     },
     "publish": {
