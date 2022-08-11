@@ -1,21 +1,26 @@
 import * as chalk from 'chalk';
 
 import { INestApplicationContext, NestApplicationOptions } from '@nestjs/common';
+
+import { ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { NestApplicationContextOptions } from '@nestjs/common/interfaces/nest-application-context-options.interface';
-import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { ServiceConfig } from '@yggdrasilts/nest-config';
 import { TSLogLoggerService } from '@yggdrasilts/nest-logger';
 
+// Default logger
 const logger = new TSLogLoggerService({ name: 'YggNestBoot' });
 
+// Default service config. Used when there is no configuration file (yml).
 const defaultServiceConfig: ServiceConfig = {
+  name: 'YggAPI',
   globalPrefix: 'api',
   host: 'localhost',
   port: 3000,
 };
 
+// Empty module to be loaded if the standalone application has no module.
 @Module({
   imports: [],
   controllers: [],
@@ -23,7 +28,16 @@ const defaultServiceConfig: ServiceConfig = {
 })
 class EmptyModule {}
 
+/**
+ * Boot class.
+ */
 export class YggNestBoot {
+  /**
+   * Bootstrap service to load NestJS application as REST API.
+   *
+   * @param module NestJS module to be loaded.
+   * @param options @see{NestApplicationOptions}
+   */
   public static async bootstrapService(module: any, options?: NestApplicationOptions): Promise<void> {
     const api = await NestFactory.create(module, {
       cors: true,
@@ -67,6 +81,13 @@ export class YggNestBoot {
     }
   }
 
+  /**
+   * Bootstrap service to load NestJS application as standalone application.
+   *
+   * @param module NestJS module.
+   * @param options @see{NestApplicationContextOptions}
+   * @returns @see{INestApplicationContext}
+   */
   public static async bootstrapStandaloneService(
     module: any = EmptyModule,
     options?: NestApplicationContextOptions,

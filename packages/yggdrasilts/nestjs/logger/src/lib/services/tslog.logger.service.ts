@@ -36,6 +36,7 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
       ...rfsSettings?.options,
       path: this.dir,
     });
+    this._ensureDir(this.dir);
     // TODO: Create a http transport to store the log in a centralized place
     this.attachTransport(
       {
@@ -63,11 +64,13 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
     this.info(this.loggerUtils.banner(msg, options));
   }
 
-  private _logToTransport(logObject: ILogObject) {
-    if (!fs.existsSync(this.dir)) {
-      fs.mkdirSync(this.dir);
-    }
-
+  private _logToTransport(logObject: ILogObject): void {
     this.logFileStream.write(JSON.stringify(logObject) + '\n');
+  }
+
+  private _ensureDir(dir: string): void {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
   }
 }
