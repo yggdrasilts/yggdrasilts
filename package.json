@@ -9,7 +9,7 @@
     "clean:all": "rimraf dist tmp node_modules package-lock.json yarn.lock",
     "start:basic-boot": "nx run basic-boot:serve",
     "start:boot-using-config": "nx run boot-using-config:serve",
-    "update:version": "node tools/scripts/version_manager.mjs",
+    "npm:publish:ygg": "node tools/scripts/version_manager.mjs",
     "npm:publish:ygg:nest:common": "nx publish yggdrasilts-nestjs-common",
     "npm:publish:ygg:nest:boot": "nx publish yggdrasilts-nestjs-boot",
     "npm:publish:ygg:nest:config": "nx publish yggdrasilts-nestjs-config",

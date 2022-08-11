@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 
 import chalk from 'chalk';
+import { execSync } from 'child_process';
 import inquirer from 'inquirer';
 import { readCachedProjectGraph } from '@nrwl/devkit';
 import semver from 'semver';
@@ -11,6 +12,8 @@ const packages = [];
 for (const key in graph.nodes) {
   packages.push({ name: graph.nodes[key].name, root: graph.nodes[key].data.root });
 }
+
+const rootPath = process.cwd();
 
 let answers = {};
 
@@ -56,6 +59,30 @@ inquirer
               encoding: 'utf-8',
             });
             console.log(chalk.bold.greenBright(`${answers.package} package version has been update ${oldVersion} => ${newVersion}`));
+            inquirer
+              .prompt({
+                type: 'confirm',
+                name: 'publish',
+                message: `Do you want to publish package ${answers.package}@${newVersion}?`,
+              })
+              .then((thirdAnswers) => {
+                answers = { ...answers, ...thirdAnswers };
+                if (answers.publish) {
+                  inquirer
+                    .prompt({
+                      type: 'input',
+                      name: 'otp',
+                      message: 'Put the otp number:',
+                    })
+                    .then((fourthAnswers) => {
+                      answers = { ...answers, ...fourthAnswers };
+                      const publishCmd = `nx publish ${answers.package} --ver=${newVersion} --otp=${answers.otp}`;
+                      console.log('publishCmd', publishCmd);
+                      process.chdir(rootPath);
+                      execSync(publishCmd, { stdio: 'inherit' });
+                    });
+                }
+              });
           }
         });
     } catch (e) {
