@@ -4,4 +4,5 @@ export const SERVICE = 'service';
 
 export interface BootServiceConfig extends ServiceConfig {
   message: string;
+  apiKey: string;
 }

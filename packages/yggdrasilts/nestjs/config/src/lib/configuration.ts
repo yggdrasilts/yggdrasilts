@@ -6,15 +6,22 @@ import { isAbsolute, join } from 'path';
 import * as yaml from 'js-yaml';
 
 import { ConfigFactory, ConfigObject } from '@nestjs/config';
-import { TSLogLoggerService } from '@yggdrasilts/nest-logger';
+import { TSLogLoggerService, TSLogOptions } from '@yggdrasilts/nest-logger';
 
 import { ConfigError } from './errors';
 
 const YAML_CONFIG_FILENAME = 'config.yml';
 
-const logger = new TSLogLoggerService({ name: 'YggNestConfig' });
+const getLogger = (tslogOptions?: { tslog: TSLogOptions }) => {
+  let tsLogSettings = { name: 'YggNestConfig' };
+  if (tslogOptions) {
+    tsLogSettings = { ...tsLogSettings, ...tslogOptions.tslog.settingsParam };
+  }
+  return new TSLogLoggerService(tsLogSettings);
+};
 
-export const loadDefaultConfigFile = (): Record<string, unknown> => {
+export const loadDefaultConfigFile = (tslogOptions?: { tslog: TSLogOptions }): Record<string, unknown> => {
+  const logger = getLogger(tslogOptions);
   const filePath = join(process.cwd(), YAML_CONFIG_FILENAME);
   logger.info('Loading config from:', filePath);
   if (existsSync(filePath)) {
@@ -23,7 +30,8 @@ export const loadDefaultConfigFile = (): Record<string, unknown> => {
   throw new ConfigError(`Configuration file not loaded: ${filePath}`);
 };
 
-export const loadConfigFile = (options: { filePath: string }): ConfigFactory<ConfigObject> => {
+export const loadConfigFile = (options: { filePath: string }, tslogOptions?: { tslog: TSLogOptions }): ConfigFactory<ConfigObject> => {
+  const logger = getLogger(tslogOptions);
   return (): Record<string, unknown> => {
     logger.info('Config options:', options);
     const filePath = isAbsolute(options.filePath) ? options.filePath : join(process.cwd(), options.filePath);

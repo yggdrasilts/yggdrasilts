@@ -5,3 +5,5 @@ service:
   globalPrefix: api
 
   message: Welcome to boot-using-config!
+
+  apiKey: ñasdklfjasñdlkfj

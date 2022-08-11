@@ -9,8 +9,13 @@ import { AppService } from './app.service';
 
 const configFilePath = process.env.CONFIG_FILE_PATH || join(__dirname, 'config/api.yml');
 
+const tslogOptions = { tslog: { settingsParam: { maskValuesOfKeys: ['password', 'apiKey'] } } };
+
 @Module({
-  imports: [YggNestLoggerModule, YggNestConfigModule.register({ load: [loadConfigFile({ filePath: configFilePath })] })],
+  imports: [
+    YggNestLoggerModule.register(tslogOptions),
+    YggNestConfigModule.register({ load: [loadConfigFile({ filePath: configFilePath }, tslogOptions)] }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
