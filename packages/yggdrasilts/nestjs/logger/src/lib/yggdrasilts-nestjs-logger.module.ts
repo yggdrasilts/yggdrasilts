@@ -1,8 +1,8 @@
 import { DynamicModule, Global, Module } from '@nestjs/common';
-import { ModuleError } from '@yggdrasilts/nest-common';
-
-import { TSLogOptions } from './logger.interface';
 import { RFS_SETTINGS, SETTINGS_PARAM, TSLogLoggerService } from './services';
+
+import { ModuleError } from '@yggdrasilts/nest-common';
+import { TSLogOptions } from './logger.interface';
 
 @Global()
 @Module({

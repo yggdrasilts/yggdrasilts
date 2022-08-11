@@ -1,9 +1,10 @@
 import * as rfs from 'rotating-file-stream';
+
 import { ISettingsParam } from 'tslog';
 
 export interface RfsSettings {
   filename: string;
-  options: rfs.Options;
+  options?: rfs.Options;
 }
 
 export interface TSLogOptions {

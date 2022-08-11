@@ -1,12 +1,11 @@
 import 'source-map-support/register';
 
-import { existsSync, readFileSync } from 'fs';
-import { isAbsolute, join } from 'path';
-
 import * as yaml from 'js-yaml';
 
 import { ConfigFactory, ConfigObject } from '@nestjs/config';
 import { TSLogLoggerService, TSLogOptions } from '@yggdrasilts/nest-logger';
+import { existsSync, readFileSync } from 'fs';
+import { isAbsolute, join } from 'path';
 
 import { ConfigError } from './errors';
 
@@ -14,8 +13,15 @@ const YAML_CONFIG_FILENAME = 'config.yml';
 
 const getLogger = (tslogOptions?: { tslog: TSLogOptions }) => {
   let tsLogSettings = { name: 'YggNestConfig' };
-  if (tslogOptions) {
+  let tsLogRFS;
+  if (tslogOptions?.tslog?.settingsParam) {
     tsLogSettings = { ...tsLogSettings, ...tslogOptions.tslog.settingsParam };
+  }
+  if (tslogOptions?.tslog?.rfsSettings) {
+    tsLogRFS = { ...tslogOptions.tslog.rfsSettings };
+  }
+  if (tslogOptions?.tslog?.settingsParam && tslogOptions?.tslog?.rfsSettings) {
+    return new TSLogLoggerService(tsLogSettings, tsLogRFS);
   }
   return new TSLogLoggerService(tsLogSettings);
 };

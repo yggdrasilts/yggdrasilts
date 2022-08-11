@@ -28,7 +28,7 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
     if (rfsSettings?.options?.path) {
       this.dir = rfsSettings.options.path;
     }
-    this.logFileStream = rfs.createStream(rfsSettings?.filename || 'api.log', {
+    this.logFileStream = rfs.createStream(rfsSettings?.filename || 'YggAPI.log', {
       size: '100M',
       interval: '1d',
       maxFiles: 30,

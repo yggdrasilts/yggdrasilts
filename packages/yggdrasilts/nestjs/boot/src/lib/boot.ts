@@ -10,7 +10,7 @@ import { ServiceConfig } from '@yggdrasilts/nest-config';
 import { TSLogLoggerService } from '@yggdrasilts/nest-logger';
 
 // Default logger
-const logger = new TSLogLoggerService({ name: 'YggNestBoot' });
+const logger = new TSLogLoggerService({ name: 'YggNestBoot' }, { filename: 'nest-boot.log' });
 
 // Default service config. Used when there is no configuration file (yml).
 const defaultServiceConfig: ServiceConfig = {
