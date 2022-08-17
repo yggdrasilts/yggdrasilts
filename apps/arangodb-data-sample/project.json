@@ -1,0 +1,58 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/arangodb-data-sample/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/arangodb-data-sample",
+        "main": "apps/arangodb-data-sample/src/main.ts",
+        "tsConfig": "apps/arangodb-data-sample/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*.yml",
+            "input": "apps/arangodb-data-sample/config",
+            "output": "./config"
+          }
+        ]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": []
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "arangodb-data-sample:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "arangodb-data-sample:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/arangodb-data-sample/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/arangodb-data-sample"],
+      "options": {
+        "jestConfig": "apps/arangodb-data-sample/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,19 @@
+service:
+  name: container-sample
+  host: 0.0.0.0
+  port: 3333
+  globalPrefix: api
+
+  containers:
+    - arangodb:
+        name: arangodb
+        image: arangodb:3.9
+        Env:
+          - key: ARANGO_ROOT_PASSWORD
+            value: arangodb
+        ExposedPorts:
+          ports:
+            - container: 8529
+              host: 8529
+        NetworkMode:
+          networkMode: container-sample

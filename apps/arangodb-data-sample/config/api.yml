@@ -1,0 +1,22 @@
+service:
+  name: arangodb-data-sample
+  host: 0.0.0.0
+  port: 3333
+  globalPrefix: api
+
+database:
+  arangodb:
+    host: localhost
+    port: 8529
+    user: root
+    password: Roc23House
+    databases:
+      - name: iot-catalog
+        collections:
+          - providers
+          - components
+          - sensors
+          - name: providers_components
+            type: edge
+          - name: components_sensors
+            type: edge
