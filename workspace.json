@@ -7,6 +7,8 @@
     "boot-using-config": "apps/boot-using-config",
     "container-sample": "apps/container-sample",
     "yggdrasilts-axiosfit": "packages/yggdrasilts/axiosfit",
+    "yggdrasilts-generators-ygg-nest-app": "packages/yggdrasilts/generators/ygg-nest-app",
+    "yggdrasilts-generators-ygg-nest-app-e2e": "packages/yggdrasilts/generators/ygg-nest-app-e2e",
     "yggdrasilts-nestjs-authentication": "packages/yggdrasilts/nestjs/authentication",
     "yggdrasilts-nestjs-boot": "packages/yggdrasilts/nestjs/boot",
     "yggdrasilts-nestjs-common": "packages/yggdrasilts/nestjs/common",

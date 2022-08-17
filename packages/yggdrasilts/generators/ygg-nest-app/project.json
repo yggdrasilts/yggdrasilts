@@ -1,0 +1,60 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/yggdrasilts/generators/ygg-nest-app/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/yggdrasilts/generators/ygg-nest-app",
+        "main": "packages/yggdrasilts/generators/ygg-nest-app/src/index.ts",
+        "tsConfig": "packages/yggdrasilts/generators/ygg-nest-app/tsconfig.lib.json",
+        "assets": [
+          "packages/yggdrasilts/generators/ygg-nest-app/*.md",
+          {
+            "input": "./packages/yggdrasilts/generators/ygg-nest-app/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/yggdrasilts/generators/ygg-nest-app/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/yggdrasilts/generators/ygg-nest-app",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/yggdrasilts/generators/ygg-nest-app",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/yggdrasilts/generators/ygg-nest-app/**/*.ts",
+          "packages/yggdrasilts/generators/ygg-nest-app/generators.json",
+          "packages/yggdrasilts/generators/ygg-nest-app/executors.json",
+          "packages/yggdrasilts/generators/ygg-nest-app/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/yggdrasilts/generators/ygg-nest-app"],
+      "options": {
+        "jestConfig": "packages/yggdrasilts/generators/ygg-nest-app/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["generator"]
+}

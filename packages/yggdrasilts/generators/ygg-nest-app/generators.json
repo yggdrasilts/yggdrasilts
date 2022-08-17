@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "YggdrasilTS nest-app",
+  "version": "0.0.1",
+  "generators": {
+    "nest-app": {
+      "factory": "./src/generators/nest-app/generator",
+      "schema": "./src/generators/nest-app/schema.json",
+      "description": "YggdrasilTS Nest app generator"
+    }
+  }
+}
