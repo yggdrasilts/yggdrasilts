@@ -2,8 +2,10 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "boot-using-config": "apps/boot-using-config",
+    "arangodb-data-sample": "apps/arangodb-data-sample",
     "basic-boot": "apps/basic-boot",
+    "boot-using-config": "apps/boot-using-config",
+    "container-sample": "apps/container-sample",
     "yggdrasilts-axiosfit": "packages/yggdrasilts/axiosfit",
     "yggdrasilts-nestjs-authentication": "packages/yggdrasilts/nestjs/authentication",
     "yggdrasilts-nestjs-boot": "packages/yggdrasilts/nestjs/boot",

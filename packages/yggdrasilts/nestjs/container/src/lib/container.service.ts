@@ -39,13 +39,11 @@ export class ContainerService implements OnModuleInit, OnApplicationShutdown {
             container.withBindMount(containerInfo.BindMount.source, containerInfo.BindMount.target, containerInfo.BindMount.bindMode);
           }
           if (containerInfo.Env) {
-            // TODO: Review if there is more env variables
-            container.withEnv(containerInfo.Env.key, containerInfo.Env.value);
+            for (const key in containerInfo.Env) {
+              const env: { key: string; value: string } = containerInfo.Env[key];
+              container.withEnv(env.key, env.value);
+            }
           }
-          container
-            .withBindMount('/tmp/arangodbdump', '/tmp/arangodbdump', 'rw')
-            .withEnv('ARANGO_ROOT_PASSWORD', 'arangodb')
-            .withCmd(['--server.jwt-secret', '0987654321d']);
 
           const startedTestContainer = await container.start();
 

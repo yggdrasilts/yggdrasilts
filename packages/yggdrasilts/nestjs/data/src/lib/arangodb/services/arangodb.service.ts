@@ -54,20 +54,20 @@ export class ArangodbService implements OnModuleInit {
           },
         };
         const innerDb = new Database(dbData);
+        const createColInstance = (data) => {
+          if (this.store[data] === undefined || this.store[data] === null) {
+            throw new Error(`Class type of '${data}' is not in the store`);
+          }
+          this.logger.info(`${this.store[data].name} has been loaded.`);
+          return new this.store[data](innerDb, data, this.logger);
+        };
         const instanceData = {
           name: databaseName,
           db: innerDb,
-          collections: collections.map((c) => {
-            let col;
-            if (typeof c === 'string') {
-              if (this.store[c] === undefined || this.store[c] === null) {
-                throw new Error(`Class type of '${c}' is not in the store`);
-              }
-              col = new this.store[c](innerDb, c, this.logger);
-              this.logger.info(`${this.store[c].name} has been loaded.`);
-            }
-            return col;
-          }),
+          collections: (collections as any[])
+            .filter((c) => typeof c === 'string' || (typeof c === 'object' && c.type === 'document'))
+            .map((c) => createColInstance(c.name || c)),
+          edges: (collections as any[]).filter((e) => typeof e === 'object' && e.type === 'edge').map((e) => createColInstance(e.name)),
         };
         this.dbInstances.push(instanceData);
       }
@@ -98,5 +98,9 @@ export class ArangodbService implements OnModuleInit {
 
   public getCollection<C>(dbName: string, collectionName: string): C {
     return this.dbInstances.find((i) => i.name === dbName).collections.find((c) => c.collectionName === collectionName) as any;
+  }
+
+  public getEdge<C>(dbName: string, edgeName: string): C {
+    return this.dbInstances.find((i) => i.name === dbName).edges.find((c) => c.collectionName === edgeName) as any;
   }
 }

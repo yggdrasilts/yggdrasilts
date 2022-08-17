@@ -1,18 +1,17 @@
-import { aql } from 'arangojs';
 import { AqlQuery } from 'arangojs/aql';
-import { DocumentData } from 'arangojs/documents';
+import { DocumentSelector, EdgeData } from 'arangojs/documents';
 
 import { BaseDocument } from './base.document';
 
-export abstract class BaseDocumentCollection<D extends DocumentData> extends BaseDocument {
-  public async findAll(): Promise<D[]> {
-    return await this._findAll();
+export abstract class BaseDocumentEdge<D extends EdgeData> extends BaseDocument {
+  public async findAll(selector: DocumentSelector): Promise<D[]> {
+    return await this._findAll(selector);
   }
 
-  protected async _findAll(): Promise<D[] | null> {
+  protected async _findAll(selector: DocumentSelector): Promise<D[] | null> {
     const collection = this.db.collection(this.collectionName);
-    const cursor = await this.db.query(aql`FOR c IN ${collection} RETURN c`);
-    return cursor.all();
+    const data = await collection.edges(selector);
+    return data.edges;
   }
 
   protected async _findByQuery(query: AqlQuery): Promise<D[] | null> {

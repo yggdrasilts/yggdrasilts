@@ -7,13 +7,16 @@
     "build": "nx run-many --target=build --all",
     "clean": "rimraf dist tmp",
     "clean:all": "rimraf dist tmp node_modules package-lock.json yarn.lock",
+    "npm:publish:ygg": "node tools/scripts/version_manager.mjs",
+    "npm:publish:ygg:nest:boot": "nx publish yggdrasilts-nestjs-boot",
+    "npm:publish:ygg:nest:common": "nx publish yggdrasilts-nestjs-common",
+    "npm:publish:ygg:nest:config": "nx publish yggdrasilts-nestjs-config",
+    "npm:publish:ygg:nest:data": "nx publish yggdrasilts-nestjs-data",
+    "npm:publish:ygg:nest:logger": "nx publish yggdrasilts-nestjs-logger",
+    "start:arangodb-data-sample": "nx run arangodb-data-sample:serve",
     "start:basic-boot": "nx run basic-boot:serve",
     "start:boot-using-config": "nx run boot-using-config:serve",
-    "npm:publish:ygg": "node tools/scripts/version_manager.mjs",
-    "npm:publish:ygg:nest:common": "nx publish yggdrasilts-nestjs-common",
-    "npm:publish:ygg:nest:boot": "nx publish yggdrasilts-nestjs-boot",
-    "npm:publish:ygg:nest:config": "nx publish yggdrasilts-nestjs-config",
-    "npm:publish:ygg:nest:logger": "nx publish yggdrasilts-nestjs-logger"
+    "start:container-sample": "nx run container-sample:serve"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",

@@ -1,6 +1,12 @@
 {
   "name": "@yggdrasilts/nest-data",
   "version": "0.1.0",
+  "license": "MIT",
   "type": "commonjs",
-  "license": "MIT"
+  "dependencies": {
+    "@yggdrasilts/nest-common": "^0.1.0",
+    "@yggdrasilts/nest-config": "^0.1.0",
+    "@yggdrasilts/nest-logger": "^0.1.0",
+    "arangojs": "^7.8.0"
+  }
 }

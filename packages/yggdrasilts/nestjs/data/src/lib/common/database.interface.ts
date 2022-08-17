@@ -1,12 +1,13 @@
 import { CollectionType, Database } from 'arangojs';
 import { DocumentData } from 'arangojs/documents';
 
-import { BaseDocumentCollection } from '../arangodb/collections';
+import { BaseDocumentCollection, BaseDocumentEdge } from '../arangodb/collections';
 
 export interface IDatabaseInstance<D extends DocumentData> {
   name: string;
   db: Database;
   collections?: BaseDocumentCollection<D>[];
+  edges?: BaseDocumentEdge<D>[];
 }
 
 export interface IConfigDatabase {
