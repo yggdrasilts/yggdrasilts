@@ -1,5 +1,5 @@
 import { YggNestBoot } from '@yggdrasilts/nest-boot';
 
-import { AppModule } from './app/app.module';
+import { ArangodbDataSampleModule } from './arangodb.data.sample.module';
 
-YggNestBoot.bootstrapService(AppModule);
+YggNestBoot.bootstrapService(ArangodbDataSampleModule);

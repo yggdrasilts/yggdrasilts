@@ -1,5 +1,5 @@
 import { YggNestBoot } from '@yggdrasilts/nest-boot';
 
-import { AppModule } from './app/app.module';
+import { ContainerSampleModule } from './container.sample.module';
 
-YggNestBoot.bootstrapService(AppModule);
+YggNestBoot.bootstrapService(ContainerSampleModule);
