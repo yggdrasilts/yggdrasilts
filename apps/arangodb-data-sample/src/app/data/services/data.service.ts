@@ -3,7 +3,7 @@ import { ArangodbService } from '@yggdrasilts/nest-data';
 import { TSLogLoggerService } from '@yggdrasilts/nest-logger';
 
 import { ComponentsCollection } from '../../arangodb/collections/components.collections';
-import { ComponentsSensorsEdge } from '../../arangodb/collections/components.sensors.edge';
+import { ComponentSensorType, ComponentsSensorsEdge } from '../../arangodb/collections/components.sensors.edge';
 import { IOT_CATALOG_COLLECTION, IOT_CATALOG_DB_NAME } from '../../arangodb/contants';
 import { Component } from '../../arangodb/entities';
 
@@ -29,8 +29,8 @@ export class DataService {
     return await this.componentsCollection.findAll();
   }
 
-  public async getEdges(): Promise<any[]> {
+  public async getEdges(): Promise<ComponentSensorType[]> {
     this.logger.debug('getEdges');
-    return await this.componentsSensorsEdge.findAll('components/alcobendas@openweathermap.OPENWEATHER_Alcobendas');
+    return await this.componentsSensorsEdge.find('components/alcobendas@openweathermap.OPENWEATHER_Alcobendas');
   }
 }

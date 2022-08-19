@@ -1,28 +1,22 @@
-import { AqlQuery } from 'arangojs/aql';
+import { Database } from 'arangojs';
 import { DocumentSelector, EdgeData } from 'arangojs/documents';
+
+import { TSLogLoggerService } from '@yggdrasilts/nest-logger';
 
 import { BaseDocument } from './base.document';
 
-export abstract class BaseDocumentEdge<D extends EdgeData> extends BaseDocument {
-  public async findAll(selector: DocumentSelector): Promise<D[]> {
-    return await this._findAll(selector);
+export abstract class BaseDocumentEdge<D extends EdgeData> extends BaseDocument<D> {
+  constructor(db: Database, collectionName: string, logger: TSLogLoggerService) {
+    super(db, collectionName, logger);
+    this.collection = db.collection(collectionName);
   }
 
-  protected async _findAll(selector: DocumentSelector): Promise<D[] | null> {
-    const collection = this.db.collection(this.collectionName);
-    const data = await collection.edges(selector);
+  public async findAll(): Promise<D[]> {
+    return await this._findAll();
+  }
+
+  public async find(selector: DocumentSelector): Promise<D[]> {
+    const data = await this.collection.edges(selector);
     return data.edges;
-  }
-
-  protected async _findByQuery(query: AqlQuery): Promise<D[] | null> {
-    this.logger.debug('FindByQuery by query:', query);
-    const cursor = await this.db.query(query);
-    const data: D[] = await cursor.all();
-
-    if (data) {
-      this.logger.trace('Data found:', data);
-      return data;
-    }
-    return null;
   }
 }
