@@ -1,7 +1,7 @@
-import * as fs from 'fs';
+import { WriteStream, createWriteStream, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
-import * as _ from 'lodash';
+import { isNil } from 'lodash';
 import * as rfs from 'rotating-file-stream';
 import { ILogObject, ISettingsParam, Logger } from 'tslog';
 
@@ -18,7 +18,7 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
   private readonly loggerUtils = new LoggerUtils();
 
   private dir = 'logs';
-  private logFileStream: fs.WriteStream | rfs.RotatingFileStream;
+  private logFileStream: WriteStream | rfs.RotatingFileStream;
 
   constructor(@Inject(SETTINGS_PARAM) @Optional() settings: ISettingsParam, @Inject(RFS_SETTINGS) @Optional() rfsSettings?: RfsSettings) {
     super({
@@ -27,10 +27,9 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
       minLevel: 'debug',
       ...settings,
     });
-    console.log('rfsSettings', rfsSettings);
-    if (_.isNil(rfsSettings)) {
+    if (isNil(rfsSettings)) {
       rfsSettings = { filename: 'YggAPI.log', disable: false };
-    } else if (_.isNil(rfsSettings?.disable)) {
+    } else if (isNil(rfsSettings?.disable)) {
       rfsSettings = { ...rfsSettings, disable: false };
     }
     if (rfsSettings?.options?.path) {
@@ -49,7 +48,7 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
       });
     } else {
       this.info('Using File Stream.');
-      this.logFileStream = fs.createWriteStream(join(this.dir, rfsSettings?.filename || 'YggAPI.log'));
+      this.logFileStream = createWriteStream(join(this.dir, rfsSettings?.filename || 'YggAPI.log'));
     }
     // TODO: Create a http transport to store the log in a centralized place
     this.attachTransport(
@@ -83,8 +82,8 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
   }
 
   private _ensureDir(dir: string): void {
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
+    if (!existsSync(dir)) {
+      mkdirSync(dir);
     }
   }
 }
