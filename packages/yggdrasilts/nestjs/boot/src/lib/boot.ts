@@ -1,16 +1,15 @@
 import * as chalk from 'chalk';
 
 import { INestApplicationContext, NestApplicationOptions } from '@nestjs/common';
-
-import { ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { NestApplicationContextOptions } from '@nestjs/common/interfaces/nest-application-context-options.interface';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { ServiceConfig } from '@yggdrasilts/nest-config';
 import { TSLogLoggerService } from '@yggdrasilts/nest-logger';
 
 // Default logger
-const logger = new TSLogLoggerService({ name: 'YggNestBoot' }, { filename: 'nest-boot.log' });
+const logger = new TSLogLoggerService({ name: 'YggNestBoot' }, { filename: 'nest-boot.log', disable: true });
 
 // Default service config. Used when there is no configuration file (yml).
 const defaultServiceConfig: ServiceConfig = {

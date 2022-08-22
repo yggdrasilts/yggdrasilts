@@ -1,15 +1,19 @@
-import { TSLogOptions, YggNestLoggerModule } from '@yggdrasilts/nest-logger';
+import { join } from 'path';
+
+import { Module } from '@nestjs/common';
 import { YggNestConfigModule, loadConfigFile } from '@yggdrasilts/nest-config';
+import { TSLogOptions, YggNestLoggerModule } from '@yggdrasilts/nest-logger';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Module } from '@nestjs/common';
-import { join } from 'path';
 
 const configFilePath = process.env.CONFIG_FILE_PATH || join(__dirname, 'config/api.yml');
 
 const tslogOptions: { tslog: TSLogOptions } = {
-  tslog: { settingsParam: { maskValuesOfKeys: ['password', 'apiKey'] }, rfsSettings: { filename: 'boot-using-config.log' } },
+  tslog: {
+    settingsParam: { maskValuesOfKeys: ['password', 'apiKey'] },
+    rfsSettings: { filename: 'boot-using-config.log', disable: true },
+  },
 };
 
 @Module({

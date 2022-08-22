@@ -1,5 +1,7 @@
 import * as fs from 'fs';
+import { join } from 'path';
 
+import * as _ from 'lodash';
 import * as rfs from 'rotating-file-stream';
 import { ILogObject, ISettingsParam, Logger } from 'tslog';
 
@@ -16,7 +18,7 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
   private readonly loggerUtils = new LoggerUtils();
 
   private dir = 'logs';
-  private logFileStream: rfs.RotatingFileStream;
+  private logFileStream: fs.WriteStream | rfs.RotatingFileStream;
 
   constructor(@Inject(SETTINGS_PARAM) @Optional() settings: ISettingsParam, @Inject(RFS_SETTINGS) @Optional() rfsSettings?: RfsSettings) {
     super({
@@ -25,18 +27,30 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
       minLevel: 'debug',
       ...settings,
     });
+    console.log('rfsSettings', rfsSettings);
+    if (_.isNil(rfsSettings)) {
+      rfsSettings = { filename: 'YggAPI.log', disable: false };
+    } else if (_.isNil(rfsSettings?.disable)) {
+      rfsSettings = { ...rfsSettings, disable: false };
+    }
     if (rfsSettings?.options?.path) {
       this.dir = rfsSettings.options.path;
     }
-    this.logFileStream = rfs.createStream(rfsSettings?.filename || 'YggAPI.log', {
-      size: '100M',
-      interval: '1d',
-      maxFiles: 30,
-      compress: 'gzip',
-      ...rfsSettings?.options,
-      path: this.dir,
-    });
     this._ensureDir(this.dir);
+    if (!rfsSettings?.disable) {
+      this.info('Using RFS Stream.');
+      this.logFileStream = rfs.createStream(rfsSettings?.filename || 'YggAPI.log', {
+        size: '1K',
+        interval: '1d',
+        maxFiles: 30,
+        compress: 'gzip',
+        ...rfsSettings?.options,
+        path: this.dir,
+      });
+    } else {
+      this.info('Using File Stream.');
+      this.logFileStream = fs.createWriteStream(join(this.dir, rfsSettings?.filename || 'YggAPI.log'));
+    }
     // TODO: Create a http transport to store the log in a centralized place
     this.attachTransport(
       {
