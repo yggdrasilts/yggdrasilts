@@ -13,6 +13,7 @@
     "npm:publish:ygg:nest:config": "nx publish yggdrasilts-nestjs-config",
     "npm:publish:ygg:nest:data": "nx publish yggdrasilts-nestjs-data",
     "npm:publish:ygg:nest:logger": "nx publish yggdrasilts-nestjs-logger",
+    "nx:upgrade": "nx migrate latest",
     "start:arangodb-data-sample": "nx run arangodb-data-sample:serve",
     "start:basic-boot": "nx run basic-boot:serve",
     "start:boot-using-config": "nx run boot-using-config:serve",
@@ -45,14 +46,14 @@
   "devDependencies": {
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
-    "@nrwl/cli": "14.5.2",
-    "@nrwl/eslint-plugin-nx": "14.5.2",
-    "@nrwl/jest": "14.5.2",
-    "@nrwl/js": "14.5.2",
-    "@nrwl/linter": "14.5.2",
-    "@nrwl/nest": "^14.5.2",
-    "@nrwl/node": "14.5.2",
-    "@nrwl/workspace": "14.5.2",
+    "@nrwl/cli": "14.5.10",
+    "@nrwl/eslint-plugin-nx": "14.5.10",
+    "@nrwl/jest": "14.5.10",
+    "@nrwl/js": "14.5.10",
+    "@nrwl/linter": "14.5.10",
+    "@nrwl/nest": "14.5.10",
+    "@nrwl/node": "14.5.10",
+    "@nrwl/workspace": "14.5.10",
     "@types/figlet": "^1.5.4",
     "@types/jest": "27.4.1",
     "@types/js-yaml": "^4.0.5",
@@ -68,7 +69,7 @@
     "import-sort-parser-typescript": "^6.0.0",
     "inquirer": "^9.1.0",
     "jest": "27.5.1",
-    "nx": "14.5.2",
+    "nx": "14.5.10",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "semver": "^7.3.7",
@@ -93,3 +94,4 @@
     }
   }
 }
+
