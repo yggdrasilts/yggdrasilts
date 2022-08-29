@@ -12,7 +12,7 @@ const configFilePath = process.env.CONFIG_FILE_PATH || join(__dirname, 'config/a
 const tslogOptions: { tslog: TSLogOptions } = {
   tslog: {
     settingsParam: { maskValuesOfKeys: ['password', 'apiKey'] },
-    rfsSettings: { filename: 'boot-using-config.log', disable: true },
+    rfsSettings: { filename: 'boot-using-config.log', disabled: true },
   },
 };
 

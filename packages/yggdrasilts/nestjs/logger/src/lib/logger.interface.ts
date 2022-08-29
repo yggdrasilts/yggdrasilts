@@ -3,7 +3,7 @@ import { ISettingsParam } from 'tslog';
 
 export interface RfsSettings {
   filename: string;
-  disable?: boolean;
+  disabled?: boolean;
   options?: rfs.Options;
 }
 

@@ -28,15 +28,15 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
       ...settings,
     });
     if (isNil(rfsSettings)) {
-      rfsSettings = { filename: 'YggAPI.log', disable: false };
-    } else if (isNil(rfsSettings?.disable)) {
-      rfsSettings = { ...rfsSettings, disable: false };
+      rfsSettings = { filename: 'YggAPI.log', disabled: false };
+    } else if (isNil(rfsSettings?.disabled)) {
+      rfsSettings = { ...rfsSettings, disabled: false };
     }
     if (rfsSettings?.options?.path) {
       this.dir = rfsSettings.options.path;
     }
     this._ensureDir(this.dir);
-    if (!rfsSettings?.disable) {
+    if (!rfsSettings?.disabled) {
       this.info('Using RFS Stream.');
       this.logFileStream = rfs.createStream(rfsSettings?.filename || 'YggAPI.log', {
         size: '1K',
