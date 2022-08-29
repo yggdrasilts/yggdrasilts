@@ -1,5 +1,7 @@
-import * as fs from 'fs';
+import { WriteStream, createWriteStream, existsSync, mkdirSync } from 'fs';
+import { join } from 'path';
 
+import { isNil } from 'lodash';
 import * as rfs from 'rotating-file-stream';
 import { ILogObject, ISettingsParam, Logger } from 'tslog';
 
@@ -16,7 +18,7 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
   private readonly loggerUtils = new LoggerUtils();
 
   private dir = 'logs';
-  private logFileStream: rfs.RotatingFileStream;
+  private logFileStream: WriteStream | rfs.RotatingFileStream;
 
   constructor(@Inject(SETTINGS_PARAM) @Optional() settings: ISettingsParam, @Inject(RFS_SETTINGS) @Optional() rfsSettings?: RfsSettings) {
     super({
@@ -25,18 +27,29 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
       minLevel: 'debug',
       ...settings,
     });
+    if (isNil(rfsSettings)) {
+      rfsSettings = { filename: 'YggAPI.log', disabled: false };
+    } else if (isNil(rfsSettings?.disabled)) {
+      rfsSettings = { ...rfsSettings, disabled: false };
+    }
     if (rfsSettings?.options?.path) {
       this.dir = rfsSettings.options.path;
     }
-    this.logFileStream = rfs.createStream(rfsSettings?.filename || 'YggAPI.log', {
-      size: '100M',
-      interval: '1d',
-      maxFiles: 30,
-      compress: 'gzip',
-      ...rfsSettings?.options,
-      path: this.dir,
-    });
     this._ensureDir(this.dir);
+    if (!rfsSettings?.disabled) {
+      this.info('Using RFS Stream.');
+      this.logFileStream = rfs.createStream(rfsSettings?.filename || 'YggAPI.log', {
+        size: '1K',
+        interval: '1d',
+        maxFiles: 30,
+        compress: 'gzip',
+        ...rfsSettings?.options,
+        path: this.dir,
+      });
+    } else {
+      this.info('Using File Stream.');
+      this.logFileStream = createWriteStream(join(this.dir, rfsSettings?.filename || 'YggAPI.log'));
+    }
     // TODO: Create a http transport to store the log in a centralized place
     this.attachTransport(
       {
@@ -69,8 +82,8 @@ export class TSLogLoggerService extends Logger implements LoggerService, YggLogg
   }
 
   private _ensureDir(dir: string): void {
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
+    if (!existsSync(dir)) {
+      mkdirSync(dir);
     }
   }
 }

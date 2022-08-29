@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { TSLogLoggerService } from '@yggdrasilts/nest-logger';
 
+import { ComponentSensorType } from '../../arangodb/collections/components.sensors.edge';
 import { Component } from '../../arangodb/entities';
 import { DataService } from '../services/data.service';
 
@@ -17,7 +18,7 @@ export class DataController {
   }
 
   @Get('componentEdges')
-  public async getComponentEdges(): Promise<Component[]> {
+  public async getComponentEdges(): Promise<ComponentSensorType[]> {
     this.logger.debug('getComponentEdges');
     return await this.dataService.getEdges();
   }
